@@ -24,6 +24,10 @@ $ # or
 $ mocha tests/shoulds.js
 ```
 
+### Screenshot
+
+![pretty, right?](screenshot.png)
+
 ### License
 
 MIT
