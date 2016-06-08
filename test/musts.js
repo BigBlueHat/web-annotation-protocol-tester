@@ -8,6 +8,7 @@ const MEDIA_TYPE = 'application/ld+json; profile="http://www.w3.org/ns/anno.json
 describe('MUSTs', function() {
   // Annotation Container Tests
   describe('4. Annotation Containers', function() {
+    it.skip('An Annotation Server MUST provide one or more Containers');
     it('MUST end in a "/" character', function(done) {
       assert.isTrue(container_url[container_url.length-1] === '/');
       done();

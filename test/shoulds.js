@@ -8,6 +8,7 @@ const MEDIA_TYPE = 'application/ld+json; profile="http://www.w3.org/ns/anno.json
 describe('SHOULDs', function() {
   // Annotation Container Tests
   describe('4. Annotation Containers', function() {
+    it.skip('SHOULD implement the LDP Basic Container specification');
     it('SHOULD use HTTPS rather than HTTP', function(done) {
       var first_five = container_url.substr(0,5);
       assert.equal(first_five, 'https');
