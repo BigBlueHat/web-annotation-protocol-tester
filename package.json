@@ -1,0 +1,30 @@
+{
+  "name": "web-annotation-protocol-tester",
+  "version": "0.0.1",
+  "description": "Test your implementation of the Web Annotation Protocol",
+  "scripts": {
+    "test": "mocha",
+    "musts": "mocha test/musts.js",
+    "shoulds": "mocha test/shoulds.js"
+  },
+  "keywords": [
+    "web",
+    "annotation",
+    "annotation",
+    "testing",
+    "protocol",
+    "mocha",
+    "supertest"
+  ],
+  "author": "BigBlueHat <byoung@bigbluehat.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3",
+    "mocha-pretty-spec-reporter": "0.1.0-beta.2",
+    "supertest": "^1.2.0"
+  },
+  "devDependencies": {
+    "mocha-clean": "^1.0.0"
+  }
+}
