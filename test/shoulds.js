@@ -15,4 +15,28 @@ describe('SHOULDs', function() {
       done();
     });
   });
+
+  describe('4.1.1 Client Preferences', function() {
+    // if the client has no preference, the server...
+    it('SHOULD return the full annotation descriptions', function(done) {
+      request(container_url)
+        .get('')
+        .expect(function(res) {
+          // check for `items`
+          if (!('items' in res.body)) {
+            throw new Error('Missing `items` array');
+          } else {
+            // check that the first item (at least) has a @context
+            // TODO: use some of the JSON Schemas from
+            //   https://github.com/w3c/web-annotation-tests
+            res.body.items.forEach(function(item) {
+              if (!('@context' in item)) {
+                throw new Error('First item is not an Annotation');
+              }
+            });
+          }
+        })
+        .expect(200, done);
+    });
+  });
 });
