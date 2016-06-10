@@ -39,4 +39,36 @@ describe('SHOULDs', function() {
         .expect(200, done);
     });
   });
+
+  describe('4.1.2 Responses without Annotations', function() {
+    var container = request(container_url);
+    it('SHOULD include links to the first and last AnnotationPages in the Collection', function(done) {
+      container
+        .get('')
+        .set('Prefer', 'return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"')
+        .expect(function(res) {
+          if (!('first' in res.body)) {
+            throw new Error('Missing IRI to `first` page');
+          }
+          if (!('last' in res.body)) {
+            throw new Error('Missing IRI to `last` page');
+          }
+        })
+        .expect(200, done);
+    });
+    it('...and without either the ldp:contains predicate or the first page of annotations embedded.', function(done) {
+      container
+        .get('')
+        .set('Prefer', 'return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"')
+        .expect(function(res) {
+          if ('items' in res.body) {
+            throw new Error('Responses without Annotations should not have Annotations');
+          }
+          if ('ldp:contains' in res.body) {
+            throw new Error('Responses without Annotations should not have Annotations');
+          }
+        })
+        .expect(200, done);
+    });
+  });
 });
