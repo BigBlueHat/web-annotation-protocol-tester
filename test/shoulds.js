@@ -71,4 +71,23 @@ describe('SHOULDs', function() {
         .expect(200, done);
     });
   });
+
+  describe('4.1.3. Responses with Annotations', function() {
+    it.skip('SHOULD include the total property with the total number of annotations in the container',
+      function(done) {
+      }
+    );
+    it.skip('SHOULD have a link to the last page of its contents using last',
+      function(done) {
+      }
+    );
+    it.skip('SHOULD include Prefer in the Vary response header to assist with caching',
+      function(done) {
+      }
+    );
+    it.skip('SHOULD NOT [receive] the Prefer header when requesting the page',
+      function(done) {
+      }
+    );
+  });
 });
