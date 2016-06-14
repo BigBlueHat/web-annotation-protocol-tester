@@ -23,7 +23,7 @@ describe('MUSTs', function() {
     });
   });
 
-  describe('4.1. Container Retrieval', function() {
+  describe('4.1 Container Retrieval', function() {
     container = request(container_url);
     it('MUST support GET, HEAD, and OPTIONs methods', function(done) {
       container
@@ -61,7 +61,7 @@ describe('MUSTs', function() {
         }
       );
       // If it is not the last page...
-      it.skip('must have a link to the next page in the sequence, using the next property',
+      it.skip('MUST have a link to the next page in the sequence, using the next property',
         function(done) {
           // TODO: can the client know if it's the last page?
         }

@@ -72,7 +72,7 @@ describe('SHOULDs', function() {
     });
   });
 
-  describe('4.1.3. Responses with Annotations', function() {
+  describe('4.1.3 Responses with Annotations', function() {
     it.skip('SHOULD include the total property with the total number of annotations in the container',
       function(done) {
       }
