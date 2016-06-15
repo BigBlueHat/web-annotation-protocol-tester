@@ -63,8 +63,18 @@ describe('MUSTs', function() {
           .expect(200, done)
       }
     );
-    it.skip('MUST include a Content-Location header with the IRI as its value',
+    it('MUST include a Content-Location header with the IRI as its value',
       function(done) {
+        container
+          .get('')
+          .expect(function(res) {
+            var cl = res.headers['content-location'];
+            var id = res.body.id;
+            if (cl !== id) {
+              throw new Error('Content-Location and `id` MUST match');
+            }
+          })
+          .expect(200, done)
       }
     );
     describe('Page Response', function() {
