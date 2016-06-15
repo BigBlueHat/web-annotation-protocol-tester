@@ -39,7 +39,20 @@ describe('MUSTs', function() {
   // ...this *is* the client and we're testing the server
 
   describe('4.1.3 Responses with Annotations', function() {
-    it.skip('MUST use the paged collection model', function(done) {
+    it('MUST use the paged collection model', function(done) {
+      container
+        .get('')
+        .expect(function(res) {
+          if ('items' in res.body) {
+            throw new Error('AnnotationCollection MUST NOT contain items'
+                + ' directly; only link to pages');
+          }
+          if (!('first' in res.body)) {
+            throw new Error('AnnotationCollection MUST reference at least the'
+                + ' first AnnotationPage');
+          }
+        })
+        .expect(200, done)
     });
     it.skip('MUST also have a link to the first page of its contents using first',
       function(done) {
