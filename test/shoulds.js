@@ -18,7 +18,9 @@ describe('SHOULDs', function() {
 
   describe('4.1.1 Client Preferences', function() {
     // if the client has no preference, the server...
-    it('SHOULD return the full annotation descriptions', function(done) {
+    it.skip('SHOULD return the full annotation descriptions', function(done) {
+      // TODO: make this a valid test...AnnotationContainer cannot contain
+      // `items` directly (which is what this checks... >_<) Pages can though.
       request(container_url)
         .get('')
         .expect(function(res) {
