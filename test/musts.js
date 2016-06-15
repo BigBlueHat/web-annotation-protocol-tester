@@ -47,15 +47,20 @@ describe('MUSTs', function() {
             throw new Error('AnnotationCollection MUST NOT contain items'
                 + ' directly; only link to pages');
           }
-          if (!('first' in res.body)) {
-            throw new Error('AnnotationCollection MUST reference at least the'
-                + ' first AnnotationPage');
-          }
         })
         .expect(200, done)
     });
-    it.skip('MUST also have a link to the first page of its contents using first',
+    it('MUST also have a link to the first page of its contents using first',
       function(done) {
+        container
+          .get('')
+          .expect(function(res) {
+            if (!('first' in res.body)) {
+              throw new Error('AnnotationCollection MUST reference at least the'
+                  + ' first AnnotationPage');
+            }
+          })
+          .expect(200, done)
       }
     );
     it.skip('MUST include a Content-Location header with the IRI as its value',
