@@ -96,15 +96,40 @@ describe('MUSTs', function() {
         }
       );
       // If it is not the first page...
-      it.skip('MUST have a link to the previous page in the sequence, using the prev property',
+      it('MUST have a link to the previous page in the sequence, using the prev property (if not first page)',
         function(done) {
-          // TODO: can the client know if it's the first page?
+          // test the last page to be sure it has a previous (`prev`) page
+          // TODO: containers SHOULD have a link to the last page...but may not
+          container
+            .get('')
+            .end(function(err, res) {
+              request(host_url)
+                .get(res.body.last)
+                .expect(function(res) {
+                  if (!('prev' in res.body)) {
+                    throw new Error('Must have a link to the previous page (if not first page)');
+                  }
+                })
+                .expect(200, done);
+            });
         }
       );
       // If it is not the last page...
-      it.skip('MUST have a link to the next page in the sequence, using the next property',
+      it.skip('MUST have a link to the next page in the sequence, using the next property (if not last page)',
         function(done) {
-          // TODO: can the client know if it's the last page?
+          // test the first page to be sure it has a next page
+          container
+            .get('')
+            .end(function(err, res) {
+              request(host_url)
+                .get(res.body.first)
+                .expect(function(res) {
+                  if (!('next' in res.body)) {
+                    throw new Error('Must have a link to the next page (if not last page)');
+                  }
+                })
+                .expect(200, done);
+            });
         }
       );
     });
