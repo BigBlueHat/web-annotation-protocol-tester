@@ -1,7 +1,8 @@
 var assert = require('chai').assert;
 var request = require('supertest');
 
-var container_url = 'http://localhost:8080/annotations/';
+var host_url = 'http://localhost:8080'
+var container_url = host_url + '/annotations/';
 
 const MEDIA_TYPE = 'application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"';
 
@@ -78,8 +79,20 @@ describe('MUSTs', function() {
       }
     );
     describe('Page Response', function() {
-      it.skip('MUST have a link to the container that it is part of, using the partOf property',
+      it('MUST have a link to the container that it is part of, using the partOf property',
         function(done) {
+          container
+            .get('')
+            .end(function(err, res) {
+              request(host_url)
+                .get(res.body.first)
+                .expect(function(res) {
+                  if (!('partOf' in res.body) || !('id' in res.body.partOf)) {
+                    throw new Error('Paged responses must be `partOf` a collection');
+                  }
+                })
+                .expect(200, done);
+            });
         }
       );
       // If it is not the first page...
