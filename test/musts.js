@@ -136,18 +136,18 @@ describe('MUSTs', function() {
   });
   describe('5. Creation, Updating and Deletion of Annotations', function() {
     describe('5.1 Create a New Annotation', function() {
+      var makethis ={
+        "@context": "http://www.w3.org/ns/anno.jsonld",
+        "type": "Annotation",
+        "body": {
+          "type": "TextualBody",
+          "value": "I like this page!"
+        },
+        "target": "http://www.example.com/index.html"
+      };
+
       it('MUST assign an IRI to the Annotation resource in the id property,'
           + ' even if it already has one provided', function(done) {
-        var makethis ={
-          "@context": "http://www.w3.org/ns/anno.jsonld",
-          "type": "Annotation",
-          "body": {
-            "type": "TextualBody",
-            "value": "I like this page!"
-          },
-          "target": "http://www.example.com/index.html"
-        };
-
         request(container_url)
           .post('')
           .set('Content-Type', MEDIA_TYPE)
@@ -157,8 +157,18 @@ describe('MUSTs', function() {
               throw new Error('The `id` must be set by the server.');
             }
           })
-          .expect(201, done);
+          .end(done);
       });
+
+      it('MUST respond with a 201 Created response if the creation is successful',
+        function(done) {
+          request(container_url)
+            .post('')
+            .set('Content-Type', MEDIA_TYPE)
+            .send(makethis)
+            .expect(201, done);
+        }
+      );
     });
   });
 });
