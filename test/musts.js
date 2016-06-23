@@ -169,6 +169,23 @@ describe('MUSTs', function() {
             .expect(201, done);
         }
       );
+
+      it("MUST have a Location header with the Annotation's new IRI",
+        function(done) {
+          request(container_url)
+            .post('')
+            .set('Content-Type', MEDIA_TYPE)
+            .send(makethis)
+            .expect(function(res) {
+              if (res.body.id !== res.header['location']) {
+                console.log(res.body.id);
+                console.log(res.header['location']);
+                throw new Error('Location header should match the id');
+              }
+            })
+            .end(done);
+        }
+      );
     });
   });
 });
