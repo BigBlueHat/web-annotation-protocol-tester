@@ -205,6 +205,23 @@ describe('MUSTs', function() {
             .end(done);
         }
       );
+
+      it('MUST advertise as an RDF Source, according to LDP',
+        function(done) {
+          request(container_url)
+            .post('')
+            .set('Content-Type', MEDIA_TYPE)
+            .send(makethis)
+            .expect(function(res) {
+              // TODO: this will break if there is more than one Link header
+              if (res.header['link'] !== '<http://www.w3.org/ns/ldp#Resource>; rel="type"') {
+                throw new Error('Needs a Link header with rel="type"');
+              }
+            })
+            .end(done);
+        }
+      );
+
     });
   });
 });
