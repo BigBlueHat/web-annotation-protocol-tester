@@ -1,5 +1,6 @@
 var assert = require('chai').assert;
 var request = require('supertest');
+var uuid = require('node-uuid');
 
 var host_url = 'http://localhost:8080'
 var container_url = host_url + '/annotations/';
@@ -181,6 +182,24 @@ describe('MUSTs', function() {
                 console.log(res.body.id);
                 console.log(res.header['location']);
                 throw new Error('Location header should match the id');
+              }
+            })
+            .end(done);
+        }
+      );
+
+      // "If the Annotation contains a canonical link, then it MUST be maintained without change."
+      it("MUST maintain canonical without change",
+        function(done) {
+          makethis.canonical = "urn:uuid:" + uuid.v4();
+
+          request(container_url)
+            .post('')
+            .set('Content-Type', MEDIA_TYPE)
+            .send(makethis)
+            .expect(function(res) {
+              if (res.body.canonical !== makethis.canonical) {
+                throw new Error('The canonical IRI must be preserved');
               }
             })
             .end(done);
