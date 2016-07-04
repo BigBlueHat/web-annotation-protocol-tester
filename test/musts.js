@@ -27,14 +27,31 @@ describe('MUSTs', function() {
 
   describe('4.1 Container Retrieval', function() {
     container = request(container_url);
-    it('MUST support GET, HEAD, and OPTIONs methods', function(done) {
-      container
-        .get('')
-        .expect('Allow', /GET/)
-        .expect('Allow', /HEAD/)
-        .expect('Allow', /OPTIONS/)
-        .expect(200, done);
-    });
+    it('MUST support GET, HEAD, and OPTIONs methods (check Allow & GET)',
+      function(done) {
+        container
+          .get('')
+          .expect('Allow', /GET/)
+          .expect('Allow', /HEAD/)
+          .expect('Allow', /OPTIONS/)
+          .expect(200, done);
+      }
+    );
+    it('MUST support GET, HEAD, and OPTIONs methods (check HEAD)',
+      function(done) {
+        container
+          .head('')
+          .expect(200, done);
+      }
+    );
+    it('MUST support GET, HEAD, and OPTIONs methods (check OPTIONS)',
+      function(done) {
+        // Test OPTIONS method
+        container
+          .options('')
+          .expect(200, done);
+      }
+    );
   });
 
   // 4.1.1 Client Preferences are not tested here...
@@ -205,23 +222,6 @@ describe('MUSTs', function() {
             .end(done);
         }
       );
-
-      it('MUST advertise as an RDF Source, according to LDP',
-        function(done) {
-          request(container_url)
-            .post('')
-            .set('Content-Type', MEDIA_TYPE)
-            .send(makethis)
-            .expect(function(res) {
-              // TODO: this will break if there is more than one Link header
-              if (res.header['link'] !== '<http://www.w3.org/ns/ldp#Resource>; rel="type"') {
-                throw new Error('Needs a Link header with rel="type"');
-              }
-            })
-            .end(done);
-        }
-      );
-
     });
   });
 });
