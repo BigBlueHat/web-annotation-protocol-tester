@@ -31,8 +31,12 @@ describe('MUSTs', function() {
           .expect(200, done);
       }
     );
-    it.skip('MUST have a Vary header with Accept in the value',
+    it('MUST have a Vary header with Accept in the value',
       function(done) {
+        container
+          .get('')
+          .expect('Vary', /Accept/)
+          .expect(200, done);
       }
     );
   });
