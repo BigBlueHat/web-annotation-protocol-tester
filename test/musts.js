@@ -19,6 +19,11 @@ describe('MUSTs', function() {
     );
     it.skip('MUST have an ETag header',
       function(done) {
+        container
+          .get('')
+          // wide open regex to catch anything...on purpose
+          .expect('Etag', /(.*)/)
+          .expect(200, done);
       }
     );
     it('MUST have an Allow header',
