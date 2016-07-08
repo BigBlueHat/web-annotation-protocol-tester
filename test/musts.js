@@ -11,8 +11,12 @@ describe('MUSTs', function() {
   describe('3. Annotation Retrieval', function() {
     // TODO: get the first annotation from the first page of the container
     // and use that for these tests
-    it.skip('MUST have a Content-Type header with the application/ld+json media type',
+    it('MUST have a Content-Type header with the application/ld+json media type',
       function(done) {
+        container
+          .get('anno1.jsonld')
+          .expect('Content-Type', /application\/ld\+json/)
+          .expect(200, done);
       }
     );
     it('MUST have a Link header entry where the target IRI is http://www.w3.org/ns/ldp#Resrouce and the rel parameter value is type',
