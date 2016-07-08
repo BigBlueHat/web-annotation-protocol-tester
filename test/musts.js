@@ -8,6 +8,29 @@ var container_url = host_url + '/annotations/';
 const MEDIA_TYPE = 'application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"';
 
 describe('MUSTs', function() {
+  describe('3. Annotation Retrieval', function() {
+    it.skip('MUST have a Content-Type header with the application/ld+json media type',
+      function(done) {
+      }
+    );
+    it.skip('MUST have a Link header entry where the target IRI is http://www.w3.org/ns/ldp#Resrouce and the rel parameter value is type',
+      function(done) {
+      }
+    );
+    it.skip('MUST have an ETag header',
+      function(done) {
+      }
+    );
+    it.skip('MUST have an Allow header',
+      function(done) {
+      }
+    );
+    it.skip('MUST have a Vary header with Accept in the value',
+      function(done) {
+      }
+    );
+  });
+
   // Annotation Container Tests
   describe('4. Annotation Containers', function() {
     it.skip('An Annotation Server MUST provide one or more Containers');
