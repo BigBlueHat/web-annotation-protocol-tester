@@ -15,8 +15,14 @@ describe('MUSTs', function() {
       function(done) {
       }
     );
-    it.skip('MUST have a Link header entry where the target IRI is http://www.w3.org/ns/ldp#Resrouce and the rel parameter value is type',
+    it('MUST have a Link header entry where the target IRI is http://www.w3.org/ns/ldp#Resrouce and the rel parameter value is type',
       function(done) {
+        // TODO: handle variations of Link headers
+        var check = '<http://www.w3.org/ns/ldp#Resource>; rel="type"'
+        container
+          .get('anno1.jsonld')
+          .expect('Link', check)
+          .expect(200, done);
       }
     );
     it.skip('MUST have an ETag header',
