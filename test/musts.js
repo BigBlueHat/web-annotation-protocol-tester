@@ -9,6 +9,8 @@ const MEDIA_TYPE = 'application/ld+json; profile="http://www.w3.org/ns/anno.json
 
 describe('MUSTs', function() {
   describe('3. Annotation Retrieval', function() {
+    // TODO: get the first annotation from the first page of the container
+    // and use that for these tests
     it.skip('MUST have a Content-Type header with the application/ld+json media type',
       function(done) {
       }
@@ -20,7 +22,7 @@ describe('MUSTs', function() {
     it.skip('MUST have an ETag header',
       function(done) {
         container
-          .get('')
+          .get('anno1.jsonld')
           // wide open regex to catch anything...on purpose
           .expect('Etag', /(.*)/)
           .expect(200, done);
@@ -29,7 +31,7 @@ describe('MUSTs', function() {
     it('MUST have an Allow header',
       function(done) {
         container
-          .get('')
+          .get('anno1.jsonld')
           .expect('Allow', /GET/)
           .expect('Allow', /HEAD/)
           .expect('Allow', /OPTIONS/)
@@ -39,7 +41,7 @@ describe('MUSTs', function() {
     it('MUST have a Vary header with Accept in the value',
       function(done) {
         container
-          .get('')
+          .get('anno1.jsonld')
           .expect('Vary', /Accept/)
           .expect(200, done);
       }
