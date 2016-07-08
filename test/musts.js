@@ -21,8 +21,14 @@ describe('MUSTs', function() {
       function(done) {
       }
     );
-    it.skip('MUST have an Allow header',
+    it('MUST have an Allow header',
       function(done) {
+        container
+          .get('')
+          .expect('Allow', /GET/)
+          .expect('Allow', /HEAD/)
+          .expect('Allow', /OPTIONS/)
+          .expect(200, done);
       }
     );
     it.skip('MUST have a Vary header with Accept in the value',
