@@ -5,7 +5,8 @@ var uuid = require('node-uuid');
 var host_url = 'http://localhost:8080'
 var container_url = host_url + '/annotations/';
 
-const MEDIA_TYPE = 'application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"';
+// just ld+json here as the full profile'd media type is a SHOULD
+const MEDIA_TYPE = 'application/ld+json';
 
 describe('MUSTs', function() {
   describe('3. Annotation Retrieval', function() {
