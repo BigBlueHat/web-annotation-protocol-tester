@@ -194,13 +194,15 @@ describe('MUSTs', function() {
         function(done) {
           container
             .get('')
+            // TODO: make this less...broad...
+            .expect(/first/, function() {
+              throw new Error('Response body is missing `first` key,'
+                  + 'so test cannot run.');
+            })
             .end(function(err, res) {
               request(host_url)
                 .get(res.body.first)
                 .expect(function(res) {
-                  if (!('body' in res) {
-                    throw new Error('No content returned in the response');
-                  }
                   if (!('partOf' in res.body) || !('id' in res.body.partOf)) {
                     throw new Error('Paged responses must be `partOf` a collection');
                   }
@@ -216,6 +218,11 @@ describe('MUSTs', function() {
           // TODO: containers SHOULD have a link to the last page...but may not
           container
             .get('')
+            // TODO: make this less...broad...
+            .expect(/last/, function() {
+              throw new Error('Response body is missing `last` key,'
+                  + 'so test cannot run.');
+            })
             .end(function(err, res) {
               request(host_url)
                 .get(res.body.last)
