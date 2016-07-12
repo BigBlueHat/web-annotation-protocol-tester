@@ -102,11 +102,52 @@ describe('MUSTs', function() {
           .expect(200, done);
       }
     );
+    it('MUST return a description of the container',
+      function(done) {
+        container
+          .get('')
+          .expect(/BasicContainer/)
+          .expect(/AnnotationCollection/)
+          .expect(200, done);
+      }
+    );
+    it('MUST be available in JSON-LD',
+      function(done) {
+        container
+          .get('')
+          .set('Accept', MEDIA_TYPE)
+          .expect('Content-Type', /application\/ld\+json/)
+          .expect(200, done);
+      }
+    );
+    it.skip('MUST include an Etag header',
+      function(done) {
+        container
+          .get('')
+          // wide open regex to catch anything...on purpose
+          .expect('Etag', /(.*)/)
+          .expect(200, done);
+      }
+    );
+    it('MUST respond with a JSON-LD representation (by default)',
+      function(done) {
+        container
+          .get('')
+          .expect('Content-Type', /application\/ld\+json/)
+          .expect(200, done);
+      }
+    );
+    it('MUST have a Vary header that includes Accept',
+      function(done) {
+        container
+          .get('')
+          .expect('Vary', /Accept/)
+          .expect(200, done);
+      }
+    );
   });
 
-  // 4.1.1 Client Preferences are not tested here...
-  // ...this *is* the client and we're testing the server
-
+  // TODO: update to new 4.2 Container Representations
   describe('4.1.3 Responses with Annotations', function() {
     it('MUST use the paged collection model', function(done) {
       container
