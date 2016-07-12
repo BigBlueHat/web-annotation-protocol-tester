@@ -198,6 +198,9 @@ describe('MUSTs', function() {
               request(host_url)
                 .get(res.body.first)
                 .expect(function(res) {
+                  if (!('body' in res) {
+                    throw new Error('No content returned in the response');
+                  }
                   if (!('partOf' in res.body) || !('id' in res.body.partOf)) {
                     throw new Error('Paged responses must be `partOf` a collection');
                   }
