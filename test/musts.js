@@ -7,6 +7,7 @@ var container_url = host_url + '/annotations/';
 
 // just ld+json here as the full profile'd media type is a SHOULD
 const MEDIA_TYPE = 'application/ld+json';
+const MEDIA_TYPE_REGEX = /application\/ld\+json/;
 
 describe('MUSTs', function() {
   describe('3. Annotation Retrieval', function() {
@@ -71,7 +72,7 @@ describe('MUSTs', function() {
     it('MUST respond (by default) with an Annotation Container', function(done) {
       container
         .get('')
-        .expect('Content-Type', MEDIA_TYPE)
+        .expect('Content-Type', MEDIA_TYPE_REGEX)
         .expect(200, done);
     });
   });
