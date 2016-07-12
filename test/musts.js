@@ -196,11 +196,9 @@ describe('MUSTs', function() {
           container
             .get('')
             // TODO: make this less...broad...
-            .expect(/first/, function() {
-              throw new Error('Response body is missing `first` key,'
-                  + 'so test cannot run.');
-            })
+            .expect(/first/)
             .end(function(err, res) {
+              if (err) throw err;
               request(host_url)
                 .get(res.body.first)
                 .expect(function(res) {
@@ -220,11 +218,9 @@ describe('MUSTs', function() {
           container
             .get('')
             // TODO: make this less...broad...
-            .expect(/last/, function() {
-              throw new Error('Response body is missing `last` key,'
-                  + 'so test cannot run.');
-            })
+            .expect(/last/)
             .end(function(err, res) {
+              if (err) throw err;
               request(host_url)
                 .get(res.body.last)
                 .expect(function(res) {
@@ -236,16 +232,21 @@ describe('MUSTs', function() {
             });
         }
       );
-      // If it is not the last page...
-      it.skip('MUST have a link to the next page in the sequence, using the next property (if not last page)',
+      it('MUST have a link to the next page in the sequence, using the'
+          + ' next property (if not last page)',
         function(done) {
           // test the first page to be sure it has a next page
           container
             .get('')
+            // TODO: make this less...broad...
+            .expect(/first/)
             .end(function(err, res) {
+              if (err) throw err;
               request(host_url)
                 .get(res.body.first)
                 .expect(function(res) {
+                  // TODO: check "last page" scenario. See:
+                  // https://github.com/BigBlueHat/web-annotation-protocol-tester/issues/4
                   if (!('next' in res.body)) {
                     throw new Error('Must have a link to the next page (if not last page)');
                   }
