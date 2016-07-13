@@ -98,95 +98,95 @@ describe('MUSTs', function() {
       assert.isTrue(container_url[container_url.length-1] === '/');
       done();
     });
-  });
 
-  describe('4.1 Container Retrieval', function() {
-    container = request(container_url);
-    it('MUST support GET, HEAD, and OPTIONs methods (check Allow & GET)',
-      function(done) {
-        container
-          .get('')
-          .expect('Allow', /GET/)
-          .expect('Allow', /HEAD/)
-          .expect('Allow', /OPTIONS/)
-          .expect(200, done);
-      }
-    );
-    it('MUST support GET, HEAD, and OPTIONs methods (check HEAD)',
-      function(done) {
-        container
-          .head('')
-          .expect(200, done);
-      }
-    );
-    it('MUST support GET, HEAD, and OPTIONs methods (check OPTIONS)',
-      function(done) {
-        // Test OPTIONS method
-        container
-          .options('')
-          .expect(200, done);
-      }
-    );
-    it('MUST return a description of the container',
-      function(done) {
-        container
-          .get('')
-          .expect(/BasicContainer/)
-          .expect(/AnnotationCollection/)
-          .expect(200, done);
-      }
-    );
-    it('MUST be available in JSON-LD',
-      function(done) {
-        container
-          .get('')
-          .set('Accept', MEDIA_TYPE)
-          .expect('Content-Type', MEDIA_TYPE_REGEX)
-          .expect(200, done);
-      }
-    );
-    it('MUST return a Link header [rfc5988] on all responses',
-      function(done) {
-        container
-          .get('')
-          .expect('Link', /(.*)/)
-          .expect(200, done);
-      }
-    );
-    it('MUST advertise its type by including a link where the rel parameter'
-        + ' value is type and the target IRI is the appropriate Container Type',
-      function(done) {
-        container
-          .get('')
-          .expect('Link', /(.*)/)
-          .expect(200, done);
-      }
-    );
-    it('MUST respond with a JSON-LD representation (by default)',
-      function(done) {
-        container
-          .get('')
-          .expect('Content-Type', MEDIA_TYPE_REGEX)
-          .expect(200, done);
-      }
-    );
-    it.skip('MUST include an Etag header',
-      function(done) {
-        container
-          .get('')
-          // wide open regex to catch anything...on purpose
-          .expect('Etag', /(.*)/)
-          .expect(200, done);
-      }
-    );
-    it('MUST have a Vary header that includes Accept',
-      function(done) {
-        container
-          .get('')
-          .expect('Vary', /Accept/)
-          .expect(200, done);
-      }
-    );
+    describe('4.1 Container Retrieval', function() {
+      container = request(container_url);
+      it('MUST support GET, HEAD, and OPTIONs methods (check Allow & GET)',
+        function(done) {
+          container
+            .get('')
+            .expect('Allow', /GET/)
+            .expect('Allow', /HEAD/)
+            .expect('Allow', /OPTIONS/)
+            .expect(200, done);
+        }
+      );
+      it('MUST support GET, HEAD, and OPTIONs methods (check HEAD)',
+        function(done) {
+          container
+            .head('')
+            .expect(200, done);
+        }
+      );
+      it('MUST support GET, HEAD, and OPTIONs methods (check OPTIONS)',
+        function(done) {
+          // Test OPTIONS method
+          container
+            .options('')
+            .expect(200, done);
+        }
+      );
+      it('MUST return a description of the container',
+        function(done) {
+          container
+            .get('')
+            .expect(/BasicContainer/)
+            .expect(/AnnotationCollection/)
+            .expect(200, done);
+        }
+      );
+      it('MUST be available in JSON-LD',
+        function(done) {
+          container
+            .get('')
+            .set('Accept', MEDIA_TYPE)
+            .expect('Content-Type', MEDIA_TYPE_REGEX)
+            .expect(200, done);
+        }
+      );
+      it('MUST return a Link header [rfc5988] on all responses',
+        function(done) {
+          container
+            .get('')
+            .expect('Link', /(.*)/)
+            .expect(200, done);
+        }
+      );
+      it('MUST advertise its type by including a link where the rel parameter'
+          + ' value is type and the target IRI is the appropriate Container Type',
+        function(done) {
+          container
+            .get('')
+            .expect('Link', /(.*)/)
+            .expect(200, done);
+        }
+      );
+      it('MUST respond with a JSON-LD representation (by default)',
+        function(done) {
+          container
+            .get('')
+            .expect('Content-Type', MEDIA_TYPE_REGEX)
+            .expect(200, done);
+        }
+      );
+      it.skip('MUST include an Etag header',
+        function(done) {
+          container
+            .get('')
+            // wide open regex to catch anything...on purpose
+            .expect('Etag', /(.*)/)
+            .expect(200, done);
+        }
+      );
+      it('MUST have a Vary header that includes Accept',
+        function(done) {
+          container
+            .get('')
+            .expect('Vary', /Accept/)
+            .expect(200, done);
+        }
+      );
+    });
   });
 
   // TODO: update to new 4.2 Container Representations
