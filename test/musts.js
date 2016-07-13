@@ -362,6 +362,25 @@ describe('MUSTs', function() {
         }
       );
 
+      // "If the Annotation contains a canonical link, then it MUST be maintained without change."
+      it('MUST maintain canonical without change',
+        function(done) {
+          makethis.canonical = 'urn:uuid:' + uuid.v4();
+
+          request(container_url)
+            .post('')
+            .set('Content-Type', MEDIA_TYPE)
+            .send(makethis)
+            .expect(function(res) {
+              if (res.body.canonical !== makethis.canonical) {
+                throw new Error('The canonical IRI must be preserved');
+              }
+            })
+            .end(done);
+        }
+      );
+
+
       it('MUST respond with a 201 Created response if the creation is successful',
         function(done) {
           request(container_url)
@@ -389,23 +408,6 @@ describe('MUSTs', function() {
         }
       );
 
-      // "If the Annotation contains a canonical link, then it MUST be maintained without change."
-      it("MUST maintain canonical without change",
-        function(done) {
-          makethis.canonical = "urn:uuid:" + uuid.v4();
-
-          request(container_url)
-            .post('')
-            .set('Content-Type', MEDIA_TYPE)
-            .send(makethis)
-            .expect(function(res) {
-              if (res.body.canonical !== makethis.canonical) {
-                throw new Error('The canonical IRI must be preserved');
-              }
-            })
-            .end(done);
-        }
-      );
     });
   });
 });
