@@ -174,20 +174,20 @@ describe('MUSTs', function() {
             .expect(200, done);
         }
       );
-      it('MUST respond with a JSON-LD representation (by default)',
-        function(done) {
-          container
-            .get('')
-            .expect('Content-Type', MEDIA_TYPE_REGEX)
-            .expect(200, done);
-        }
-      );
       it.skip('MUST include an Etag header',
         function(done) {
           container
             .get('')
             // wide open regex to catch anything...on purpose
             .expect('Etag', /(.*)/)
+            .expect(200, done);
+        }
+      );
+      it('MUST respond with a JSON-LD representation (by default)',
+        function(done) {
+          container
+            .get('')
+            .expect('Content-Type', MEDIA_TYPE_REGEX)
             .expect(200, done);
         }
       );
