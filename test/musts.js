@@ -210,9 +210,18 @@ describe('MUSTs', function() {
         // TODO: test `first` is an URL or object
       }
     );
-    it.skip('MUST include a Content-Location header with the IRI as its value',
+    it('MUST include a Content-Location header with the IRI as its value',
       function(done) {
-        // TODO: test the thing
+        container
+          .get('')
+          .expect(function(res) {
+            var cl = res.headers['content-location'];
+            var id = res.body.id;
+            if (cl !== id) {
+              throw new Error('Content-Location and `id` MUST match');
+            }
+          })
+          .expect(200, done)
       }
     );
     // Only Client-specific Requirements in 4.2.1
@@ -237,49 +246,8 @@ describe('MUSTs', function() {
     });
 
     describe ('4.3 Annotation Pages', function() {
-      // TODO: migrated old Page Response stuff here
-    });
-
-    it('MUST use the paged collection model', function(done) {
-      container
-        .get('')
-        .expect(function(res) {
-          if ('items' in res.body) {
-            throw new Error('AnnotationCollection MUST NOT contain items'
-                + ' directly; only link to pages');
-          }
-        })
-        .expect(200, done)
-    });
-    it('MUST also have a link to the first page of its contents using first',
-      function(done) {
-        container
-          .get('')
-          .expect(function(res) {
-            if (!('first' in res.body)) {
-              throw new Error('AnnotationCollection MUST reference at least the'
-                  + ' first AnnotationPage');
-            }
-          })
-          .expect(200, done)
-      }
-    );
-    it('MUST include a Content-Location header with the IRI as its value',
-      function(done) {
-        container
-          .get('')
-          .expect(function(res) {
-            var cl = res.headers['content-location'];
-            var id = res.body.id;
-            if (cl !== id) {
-              throw new Error('Content-Location and `id` MUST match');
-            }
-          })
-          .expect(200, done)
-      }
-    );
-    describe('Page Response', function() {
-      it('MUST have a link to the container that it is part of, using the partOf property',
+      it('MUST have a link to the container that it is part of, using the'
+          + ' partOf property',
         function(done) {
           container
             .get('')
@@ -295,11 +263,13 @@ describe('MUSTs', function() {
                   }
                 })
                 .expect(200, done);
-            });
+            }
+          );
         }
       );
       // If it is not the first page...
-      it('MUST have a link to the previous page in the sequence, using the prev property (if not first page)',
+      it('MUST have a link to the previous page in the sequence, using the'
+          + ' prev property (if not first page)',
         function(done) {
           // test the last page to be sure it has a previous (`prev`) page
           // TODO: containers SHOULD have a link to the last page...but may not
@@ -317,7 +287,8 @@ describe('MUSTs', function() {
                   }
                 })
                 .expect(200, done);
-            });
+            }
+          );
         }
       );
       it('MUST have a link to the next page in the sequence, using the'
@@ -340,11 +311,13 @@ describe('MUSTs', function() {
                   }
                 })
                 .expect(200, done);
-            });
+            }
+          );
         }
       );
     });
   });
+
   describe('5. Creation, Updating and Deletion of Annotations', function() {
     describe('5.1 Create a New Annotation', function() {
       var makethis ={
