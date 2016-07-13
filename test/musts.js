@@ -214,6 +214,7 @@ describe('MUSTs', function() {
       function(done) {
         container
           .get('')
+          .expect('Content-Location', /(.*)/)
           .expect(function(res) {
             var cl = res.headers['content-location'];
             var id = res.body.id;
