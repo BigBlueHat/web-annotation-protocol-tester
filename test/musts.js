@@ -98,14 +98,6 @@ describe('MUSTs', function() {
       assert.isTrue(container_url[container_url.length-1] === '/');
       done();
     });
-
-    container = request(container_url);
-    it('MUST respond (by default) with an Annotation Container', function(done) {
-      container
-        .get('')
-        .expect('Content-Type', MEDIA_TYPE_REGEX)
-        .expect(200, done);
-    });
   });
 
   describe('4.1 Container Retrieval', function() {
