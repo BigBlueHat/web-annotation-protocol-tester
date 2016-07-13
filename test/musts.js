@@ -24,7 +24,21 @@ describe('MUSTs', function() {
           .expect(200, done);
       }
     );
-
+    it('MUST support GET, HEAD, and OPTIONs methods (check HEAD)',
+      function(done) {
+        container
+          .head(annotation_url)
+          .expect(200, done);
+      }
+    );
+    it('MUST support GET, HEAD, and OPTIONs methods (check OPTIONS)',
+      function(done) {
+        // Test OPTIONS method
+        container
+          .options(annotation_url)
+          .expect(200, done);
+      }
+    );
     it.skip('MUST support the JSON-LD representation using the Web Annotation profile',
       function(done) {
         // TODO: what's to check here not covered below? the `type` value?
