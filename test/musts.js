@@ -372,7 +372,8 @@ describe('MUSTs', function() {
             .set('Content-Type', MEDIA_TYPE)
             .send(makethis)
             .expect(function(res) {
-              if (res.body.canonical !== makethis.canonical) {
+              if (!('canonical' in res.body)
+                  && res.body.canonical !== makethis.canonical) {
                 throw new Error('The canonical IRI must be preserved');
               }
             })
