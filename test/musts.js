@@ -157,7 +157,20 @@ describe('MUSTs', function() {
         function(done) {
           container
             .get('')
-            .expect('Link', /(.*)/)
+            // TODO: probably should be a smarter test for this...
+            .expect('Link', /rel\=\"type\"|\/ns\/ldp#|Container/)
+            .expect(200, done);
+        }
+      );
+      it('MUST advertise that it imposes Annotation protocol specific'
+          + ' constraints by including a link where the target IRI is'
+          + ' http://www.w3.org/TR/annotation-protocol/, and the rel parameter'
+          + ' value is the IRI http://www.w3.org/ns/ldp#constrainedBy',
+        function(done) {
+          container
+            .get('')
+            // TODO: probably should be a smarter test for this...
+            .expect('Link', /rel\=\"http:\/\/www.w3.org\/ns\/ldp#constrainedBy\"|\<http:\/\/www.w3.org\/TR\/annotation-protocol\//)
             .expect(200, done);
         }
       );
