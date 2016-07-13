@@ -345,6 +345,22 @@ describe('MUSTs', function() {
           .end(done);
       });
 
+      it('MUST be the IRI of the Container with an additional component added'
+          + ' to the end',
+        function(done) {
+          request(container_url)
+            .post('')
+            .set('Content-Type', MEDIA_TYPE)
+            .send(makethis)
+            .expect(function(res) {
+              if (!('id' in res.body)
+                  && res.body.id.search(container_url) > -1) {
+                throw new Error('The `id` must contain the Container IRI');
+              }
+            })
+            .end(done);        }
+      );
+
       it('MUST respond with a 201 Created response if the creation is successful',
         function(done) {
           request(container_url)
