@@ -202,8 +202,44 @@ describe('MUSTs', function() {
     });
   });
 
-  // TODO: update to new 4.2 Container Representations
-  describe('4.1.3 Responses with Annotations', function() {
+  describe('4.2 Container Representations', function() {
+    it.skip('MUST either include a link to the first page of Annotations as'
+        + ' the value of the first property, or include the representation of'
+        + ' the first page embedded within the response',
+      function(done) {
+        // TODO: test `first` is an URL or object
+      }
+    );
+    it.skip('MUST include a Content-Location header with the IRI as its value',
+      function(done) {
+        // TODO: test the thing
+      }
+    );
+    // Only Client-specific Requirements in 4.2.1
+    it.skip('4.2.1 Client Representation Preferences', function(done) {});
+
+    describe('4.2.2 Representations without Annotations', function() {
+      it.skip('MUST NOT include either the ldp:contains predicate or the first'
+          + ' page of Annotations embedded within the response (if mimimal'
+          + ' representation requested)',
+        function(done) {
+          // TODO: test it
+        }
+      );
+    });
+
+    describe('4.2.3 Representations with Annotation IRIs', function() {
+      // TODO: where'd the musts go?
+    });
+
+    describe('4.2.4 Representations with Annotation Descriptions', function() {
+      // TODO: huh...none here either...
+    });
+
+    describe ('4.3 Annotation Pages', function() {
+      // TODO: migrated old Page Response stuff here
+    });
+
     it('MUST use the paged collection model', function(done) {
       container
         .get('')
