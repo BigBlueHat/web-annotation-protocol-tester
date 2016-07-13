@@ -13,11 +13,28 @@ describe('MUSTs', function() {
   describe('3. Annotation Retrieval', function() {
     // TODO: get the first annotation from the first page of the container
     // and use that for these tests
+    var annotation_url = 'anno1.jsonld';
+    it('MUST support GET, HEAD, and OPTIONs methods (check Allow & GET)',
+      function(done) {
+        container
+          .get(annotation_url)
+          .expect('Allow', /GET/)
+          .expect('Allow', /HEAD/)
+          .expect('Allow', /OPTIONS/)
+          .expect(200, done);
+      }
+    );
+
+    it.skip('MUST support the JSON-LD representation using the Web Annotation profile',
+      function(done) {
+        // TODO: what's to check here not covered below? the `type` value?
+      }
+    );
     it('MUST have a Content-Type header with the application/ld+json media type',
       function(done) {
         container
-          .get('anno1.jsonld')
-          .expect('Content-Type', /application\/ld\+json/)
+          .get(annotation_url)
+          .expect('Content-Type', MEDIA_TYPE_REGEX)
           .expect(200, done);
       }
     );
@@ -26,7 +43,7 @@ describe('MUSTs', function() {
         // TODO: handle variations of Link headers
         var check = '<http://www.w3.org/ns/ldp#Resource>; rel="type"'
         container
-          .get('anno1.jsonld')
+          .get(annotation_url)
           .expect('Link', check)
           .expect(200, done);
       }
@@ -34,7 +51,7 @@ describe('MUSTs', function() {
     it.skip('MUST have an ETag header',
       function(done) {
         container
-          .get('anno1.jsonld')
+          .get(annotation_url)
           // wide open regex to catch anything...on purpose
           .expect('Etag', /(.*)/)
           .expect(200, done);
@@ -43,7 +60,7 @@ describe('MUSTs', function() {
     it('MUST have an Allow header',
       function(done) {
         container
-          .get('anno1.jsonld')
+          .get(annotation_url)
           .expect('Allow', /GET/)
           .expect('Allow', /HEAD/)
           .expect('Allow', /OPTIONS/)
@@ -53,7 +70,7 @@ describe('MUSTs', function() {
     it('MUST have a Vary header with Accept in the value',
       function(done) {
         container
-          .get('anno1.jsonld')
+          .get(annotation_url)
           .expect('Vary', /Accept/)
           .expect(200, done);
       }
@@ -118,16 +135,32 @@ describe('MUSTs', function() {
         container
           .get('')
           .set('Accept', MEDIA_TYPE)
-          .expect('Content-Type', /application\/ld\+json/)
+          .expect('Content-Type', MEDIA_TYPE_REGEX)
           .expect(200, done);
       }
     );
-
+    it('MUST return a Link header [rfc5988] on all responses',
+      function(done) {
+        container
+          .get('')
+          .expect('Link', /(.*)/)
+          .expect(200, done);
+      }
+    );
+    it('MUST advertise its type by including a link where the rel parameter'
+        + ' value is type and the target IRI is the appropriate Container Type',
+      function(done) {
+        container
+          .get('')
+          .expect('Link', /(.*)/)
+          .expect(200, done);
+      }
+    );
     it('MUST respond with a JSON-LD representation (by default)',
       function(done) {
         container
           .get('')
-          .expect('Content-Type', /application\/ld\+json/)
+          .expect('Content-Type', MEDIA_TYPE_REGEX)
           .expect(200, done);
       }
     );
