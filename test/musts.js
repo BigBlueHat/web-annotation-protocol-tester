@@ -358,7 +358,8 @@ describe('MUSTs', function() {
                 throw new Error('The `id` must contain the Container IRI');
               }
             })
-            .end(done);        }
+            .end(done);
+        }
       );
 
       it('MUST respond with a 201 Created response if the creation is successful',
