@@ -441,10 +441,24 @@ describe('MUSTs', function() {
       it.skip('MUST return the new state of the Annotation in the response');
     });
     describe('5.4 Delete an Existing Annotation', function() {
-      it.skip('MUST use the DELETE HTTP method', function(done) {
+      it('MUST use the DELETE HTTP method', function(done) {
         // create annotation
-        // delete annotation
-        // check response code
+        request(container_url)
+          .post('')
+          .set('Content-Type', MEDIA_TYPE)
+          .send(makethis)
+          .end(function(err, res) {
+            if (err) throw err;
+            // delete annotation
+            request(host_url)
+              .del(res.body.id)
+              // check response code
+              .expect(204)
+              .end(function(err, res) {
+                if (err) throw err;
+                done();
+              });
+          });
       });
       it.skip('MUST return a 204 status response', function(done) {
         // checked above
