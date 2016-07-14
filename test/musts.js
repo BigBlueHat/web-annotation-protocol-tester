@@ -436,6 +436,9 @@ describe('MUSTs', function() {
               .expect(200, done);
           });
       });
+      // These are tested above...test them again...?
+      it.skip('MUST return a 200 OK status with the Annotation as the body');
+      it.skip('MUST return the new state of the Annotation in the response');
     });
   });
 });
