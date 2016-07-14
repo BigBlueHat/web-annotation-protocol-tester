@@ -440,5 +440,24 @@ describe('MUSTs', function() {
       it.skip('MUST return a 200 OK status with the Annotation as the body');
       it.skip('MUST return the new state of the Annotation in the response');
     });
+    describe('5.4 Delete an Existing Annotation', function() {
+      it.skip('MUST use the DELETE HTTP method', function(done) {
+        // create annotation
+        // delete annotation
+        // check response code
+      });
+      it.skip('MUST return a 204 status response', function(done) {
+        // checked above
+      });
+      // MUST be removed from the Annotation Container it was created in
+      it.skip('MUST remove the IRIs of the deleted Annotation from Container',
+        function(done) {
+          // load annotation page
+          // delete first annotation
+          // reload annotation page
+          // check for annotation
+        }
+      );
+    });
   });
 });
