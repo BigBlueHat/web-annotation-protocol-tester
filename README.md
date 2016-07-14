@@ -24,6 +24,12 @@ $ # or
 $ mocha tests/shoulds.js
 ```
 
+Additionally, you can run specific tests by using mocha's built in grep feature:
+
+```
+$ mocha tests/musts.js -g PUT
+```
+
 ### Screenshot
 
 ![pretty, right?](screenshot.png)

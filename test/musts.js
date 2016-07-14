@@ -320,17 +320,17 @@ describe('MUSTs', function() {
   });
 
   describe('5. Creation, Updating and Deletion of Annotations', function() {
-    describe('5.1 Create a New Annotation', function() {
-      var makethis ={
-        "@context": "http://www.w3.org/ns/anno.jsonld",
-        "type": "Annotation",
-        "body": {
-          "type": "TextualBody",
-          "value": "I like this page!"
-        },
-        "target": "http://www.example.com/index.html"
-      };
+    var makethis = {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "type": "Annotation",
+      "body": {
+        "type": "TextualBody",
+        "value": "I like this page!"
+      },
+      "target": "http://www.example.com/index.html"
+    };
 
+    describe('5.1 Create a New Annotation', function() {
       it('MUST assign an IRI to the Annotation resource in the id property,'
           + ' even if it already has one provided', function(done) {
         request(container_url)
@@ -408,7 +408,34 @@ describe('MUSTs', function() {
             .end(done);
         }
       );
+    });
 
+    describe('5.2 Suggesting an IRI for an Annotation', function() {
+      // nothing to do here...all MAY and SHOULD
+    });
+
+    describe('5.3 Update an Existing Annotation', function() {
+      it('MUST be done with the PUT method', function(done) {
+        request(container_url)
+          .post('')
+          .set('Content-Type', MEDIA_TYPE)
+          .send(makethis)
+          .end(function(err, res) {
+            if (err) throw err;
+            var new_annotation = res.body;
+            new_annotation.target = "http://other.example/";
+            request(container_url)
+              .put(res.body.id)
+              .set('Content-Type', MEDIA_TYPE)
+              .send(new_annotation)
+              .expect(function(res) {
+                if (res.body.target !== new_annotation.target) {
+                  throw Error('Target should have been upated');
+                }
+              })
+              .expect(200, done);
+          });
+      });
     });
   });
 });
