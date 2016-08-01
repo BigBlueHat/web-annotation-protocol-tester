@@ -62,7 +62,7 @@ describe('MUSTs', function() {
           .expect(200, done);
       }
     );
-    it.skip('MUST have an ETag header',
+    it('MUST have an ETag header',
       function(done) {
         container
           .get(annotation_url)
@@ -174,7 +174,7 @@ describe('MUSTs', function() {
             .expect(200, done);
         }
       );
-      it.skip('MUST include an Etag header',
+      it('MUST include an Etag header',
         function(done) {
           container
             .get('')
