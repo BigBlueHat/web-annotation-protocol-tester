@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "Test your implementation of the Web Annotation Protocol",
   "scripts": {
-    "test": "mocha",
-    "musts": "mocha test/musts.js",
-    "shoulds": "mocha test/shoulds.js"
+    "test": "mocha -c",
+    "musts": "mocha -c test/musts.js",
+    "shoulds": "mocha -c test/shoulds.js"
   },
   "keywords": [
     "web",
