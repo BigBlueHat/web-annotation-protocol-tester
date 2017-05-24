@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 var request = require('supertest');
-var uuid = require('node-uuid');
+var uuid = require('uuid');
 
 var host_url = 'http://localhost:8080'
 var container_url = host_url + '/annotations/';
