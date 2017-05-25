@@ -8,26 +8,25 @@ This is an **experimental** test client for the
 ### Usage
 
 ```
-$ npm i -g mocha
 $ npm i
-$ npm test # runs MUST & SHOULD tests
+$ npm test -- --url=http://localhost:8080/annotations/ # runs all tests
 $ # or
-$ npm run musts
-$ npm run shoulds
+$ npm run musts -- --url=http://localhost:8080/annotations/
+$ npm run shoulds -- --url=http://localhost:8080/annotations/
 ```
 
 Alternatively (if you don't like the massive node stack trace mess...):
 
 ```
-$ mocha tests/musts.js
+$ mocha tests/musts.js --url=http://localhost:8080/annotations/
 $ # or
-$ mocha tests/shoulds.js
+$ mocha tests/shoulds.js --url=http://localhost:8080/annotations/
 ```
 
-Additionally, you can run specific tests by using mocha's built in grep feature:
+You can also run specific tests by using mocha's built in grep feature:
 
 ```
-$ mocha tests/musts.js -g PUT
+$ mocha -g PUT tests/musts.js --url=http://localhost:8080/annotations/
 ```
 
 ### Screenshot

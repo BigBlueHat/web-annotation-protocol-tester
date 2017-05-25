@@ -1,9 +1,22 @@
+const fs = require('fs');
+const URL = require('url');
+
 var assert = require('chai').assert;
+const nconf = require('nconf');
 var request = require('supertest');
 var uuid = require('uuid');
 
-var host_url = 'http://localhost:8080'
-var container_url = host_url + '/annotations/';
+// load argv, then env
+nconf.argv({
+  'url': {
+    describe: 'URL of the Web Annotation Protocol endpoint',
+    demand: true
+  }
+});
+
+const container_url = nconf.get('url');
+const url = URL.parse(nconf.get('url'));
+const host_url = `${url.protocol}://${url.host}`;
 
 // just ld+json here as the full profile'd media type is a SHOULD
 const MEDIA_TYPE = 'application/ld+json';

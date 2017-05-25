@@ -1,7 +1,19 @@
+const fs = require('fs');
+const URL = require('url');
+
 var assert = require('chai').assert;
+const nconf = require('nconf');
 var request = require('supertest');
 
-var container_url = 'http://localhost:8080/annotations/';
+// load argv, then env
+nconf.argv({
+  'url': {
+    describe: 'URL of the Web Annotation Protocol endpoint',
+    demand: true
+  }
+});
+
+const container_url = nconf.get('url');
 
 const MEDIA_TYPE = 'application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"';
 
